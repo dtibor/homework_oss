@@ -26,7 +26,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/http-server:v1
+          tags: ${{ secrets.DOCKER_USERNAME }}/homework_oss:v1
 
       - name: Log out from Docker Hub
         run: docker logout
