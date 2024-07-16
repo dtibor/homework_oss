@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    tags:
+      - 'v*'  # This will trigger the workflow for tags starting with 'v'
 
 jobs:
   build-and-push:
@@ -22,11 +24,22 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
+      - name: Extract version
+        id: extract_version
+        run: echo "::set-output name=tag::$(git describe --tags --always --dirty)"
+
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
+          context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/homework_oss:v1
+          tags: |
+            ${{ secrets.DOCKER_USERNAME }}/http-server:latest
+            ${{ secrets.DOCKER_USERNAME }}/http-server:${{ steps.extract_version.outputs.tag }}
+
+      - name: Log out from Docker Hub
+        run: docker logout
+
 
       - name: Log out from Docker Hub
         run: docker logout
