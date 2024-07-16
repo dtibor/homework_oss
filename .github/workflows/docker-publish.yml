@@ -34,8 +34,7 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKER_USERNAME }}/http-server:latest
-            ${{ secrets.DOCKER_USERNAME }}/http-server:${{ steps.extract_version.outputs.tag }}
+            ${{ secrets.DOCKER_USERNAME }}/homework_oss:${{ steps.extract_version.outputs.tag }}
 
       - name: Log out from Docker Hub
         run: docker logout
