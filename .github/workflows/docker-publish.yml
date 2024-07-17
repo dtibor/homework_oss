@@ -38,7 +38,3 @@ jobs:
 
       - name: Log out from Docker Hub
         run: docker logout
-
-
-      - name: Log out from Docker Hub
-        run: docker logout
