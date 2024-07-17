@@ -11,4 +11,4 @@ COPY . /app
 EXPOSE 8000
 
 # Run simple_http_server.py when the container launches
-CMD ["python", "simple_http_server.py"]
+CMD ["python", "very_simple_http_server.py"]
