@@ -1,0 +1,6 @@
+vsphere_server = "192.168.2.251"
+vsphere_user = "administrator@vsphere.local"
+vsphere_password = ""
+gateway_ip = "192.168.2.1"
+vm_template = "ubuntu_template"
+esxi_server = "192.168.2.252"

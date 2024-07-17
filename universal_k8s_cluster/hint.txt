@@ -1,0 +1,2 @@
+#  if network connection is thrown, install into template:
+apt-get install util-linux-extra
