@@ -6,10 +6,27 @@ on:
       - 'v*'  # This will trigger the workflow for tags starting with 'v'
 
 jobs:
-  build-and-push:
-    if: github.event_name == 'push' && github.event.head_commit.modified.contains('metadata.json')
+  check-metadata:
     runs-on: ubuntu-latest
+    outputs:
+      metadata_changed: ${{ steps.check.outputs.metadata_changed }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
+      - name: Check if metadata.json is modified
+        id: check
+        run: |
+          if git diff --name-only HEAD^ HEAD | grep -q 'metadata.json'; then
+            echo "::set-output name=metadata_changed::true"
+          else
+            echo "::set-output name=metadata_changed::false"
+          fi
+
+  build-and-push:
+    needs: check-metadata
+    if: needs.check-metadata.outputs.metadata_changed == 'true'
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
