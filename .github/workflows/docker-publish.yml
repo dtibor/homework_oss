@@ -7,6 +7,7 @@ on:
 
 jobs:
   build-and-push:
+    if: github.event_name == 'push' && github.event.head_commit.modified.contains('metadata.json')
     runs-on: ubuntu-latest
 
     steps:
